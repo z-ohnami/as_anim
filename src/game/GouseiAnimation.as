@@ -14,6 +14,8 @@ package game
 		private var _materialLength:int = 0;
 		
 		private var _flashScreen:Quad;
+
+		private var _gouseiShine:CardShine;
 		
 		public function GouseiAnimation(base:ImageLoader,material:Vector.<ImageLoader>)
 		{
@@ -28,17 +30,26 @@ package game
 		private function init():void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,init);
+
+			_gouseiShine = new CardShine(0x00FF00,4,200,500,1);
+			_gouseiShine.alpha = 0;
+			_gouseiShine.x = stage.stageWidth / 2;
+			_gouseiShine.y = stage.stageHeight / 2;
+			addChild(_gouseiShine);
+			
 			_base.scaleX = 0.3;
 			_base.scaleY = 0.3;
 			_base.x = stage.stageWidth / 2 - _base.width / 2;
 			_base.y = stage.stageHeight / 2 + _base.height / 2;
+			addChild(_base);
 			
-			var posX:int = (stage.stageWidth - (_material[i].width * _materialLength) ) / 2;
+			var posX:int = (stage.stageWidth - (_material[0].width * _materialLength) ) / 2;
 			for(var i:int=0;i < _materialLength;i++) {
 				_material[i].scaleX = 0.15;
 				_material[i].scaleY = 0.15;
 				_material[i].x = posX;
 				_material[i].y = stage.stageHeight - (_material[i].height * 2);
+				addChild(_material[i]);
 
 				posX += _material[i].width;
 			}
@@ -46,6 +57,8 @@ package game
 			_flashScreen = new Quad(stage.stageWidth,stage.stageHeight,0xFFFFFF);
 			_flashScreen.alpha = 0;
 			addChild(_flashScreen);
+			
+			
 		}
 		
 		public function start():void
@@ -114,7 +127,10 @@ package game
 						Tween24.prop(_material[i]).x(centerX + distance * Math.cos(currentDegree * Math.PI / 180)).y(centerY + distance * Math.sin(currentDegree * Math.PI / 180)),
 //						Tween24.tween(_material[i],0.4).x(centerX - _material[i].width / 2).y(centerY - _material[i].height / 2).scaleXY(0.3,0.3),
 						Tween24.tween(_material[i],0.4).x(centerX - _base.width / 2).y(centerY - _base.height / 2).scaleXY(0.3,0.3),
-						Tween24.tween(_material[i],0.2).alpha(0)
+						Tween24.parallel(
+							Tween24.tween(_material[i],0.2).alpha(0),
+							gouseiShine()
+						)
 					)
 				);
 				
@@ -127,6 +143,16 @@ package game
 			);
 			
 		}
+
+		private function gouseiShine():Tween24
+		{
+			return Tween24.serial(
+				Tween24.func(_gouseiShine.drawShines),
+				Tween24.tween(_gouseiShine,0.1).alpha(0.2),
+				Tween24.tween(_gouseiShine,0.1).alpha(0)
+			);
+		}
+		
 		
 	}
 }
