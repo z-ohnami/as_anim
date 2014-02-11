@@ -18,8 +18,10 @@ package
 		{
 			super();
 
-			stage.stageWidth = SCREEN_WIDTH;
-			stage.stageHeight = SCREEN_HEIGHT;
+			var scale:Number = stage.fullScreenWidth / Main.SCREEN_WIDTH;
+
+			stage.stageWidth = SCREEN_WIDTH * scale;
+			stage.stageHeight = SCREEN_HEIGHT * scale;
 			
 			mStarling = new Starling(Game,stage);
 			mStarling.start();
