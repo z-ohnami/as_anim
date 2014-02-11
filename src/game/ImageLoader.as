@@ -12,12 +12,16 @@ package game
 
 	public class ImageLoader extends Sprite
 	{
-		
 		private var _loader:Loader;
+		private var _width:Number = 0;
+		private var _height:Number = 0;
 		
-		public function ImageLoader(url:String)
+		public function ImageLoader(url:String,w:Number = 0,h:Number = 0)
 		{
 			super();
+
+			_width = w;
+			_height = h;
 			
 			_loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.INIT,init);
@@ -28,6 +32,16 @@ package game
 		{
 			var bitmap:Bitmap = event.currentTarget.loader.content as Bitmap;
 			addChild(new Image(Texture.fromBitmap(bitmap)));
+		}
+
+		override public function get width():Number
+		{
+			return _width;
+		}
+
+		override public function get height():Number
+		{
+			return _height;
 		}
 		
 	}

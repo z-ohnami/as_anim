@@ -1,10 +1,10 @@
 package game
 {
 	
+	import game.ImageLoader;
+	
 	import starling.display.Sprite;
 	import starling.events.Event;
-
-	import game.ImageLoader;
 	
 	public class Game extends Sprite
 	{
@@ -18,8 +18,22 @@ package game
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,init);
 			
-			var baseCard:ImageLoader = new ImageLoader('/img/card1.png');
+			stage.color = 0x000000;
+			
+			var baseCard:ImageLoader = new ImageLoader('/img/card1.png',96,144);
 			addChild(baseCard);
+
+			var materialCard:Vector.<ImageLoader> = new Vector.<ImageLoader>;
+			for(var i:Number = 0;i < 5;i++) {
+				var material:ImageLoader = new ImageLoader('/img/card'+(i+1)+'.png',32,48);
+				addChild(material);
+				materialCard.push(material);
+			}
+			
+			var animation:GouseiAnimation = new GouseiAnimation(baseCard,materialCard);
+			addChild(animation);
+			animation.start();
+			
 		}
 	}
 }

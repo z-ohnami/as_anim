@@ -23,7 +23,7 @@ package
 			
 			mStarling = new Starling(Game,stage);
 			mStarling.start();
-			
+
 		}
 	}
 }
