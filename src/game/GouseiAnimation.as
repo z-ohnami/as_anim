@@ -3,6 +3,7 @@ package game
 	import a24.tween.Ease24;
 	import a24.tween.Tween24;
 	
+	import starling.display.BlendMode;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -15,6 +16,7 @@ package game
 		
 		private var _flashScreen:Quad;
 
+		private var _backEffect:Sprite;
 		private var _gouseiShine:CardShine;
 		
 		public function GouseiAnimation(base:ImageLoader,material:Vector.<ImageLoader>)
@@ -31,11 +33,8 @@ package game
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,init);
 
-			_gouseiShine = new CardShine(0x00FF00,4,200,500,1);
-			_gouseiShine.alpha = 0;
-			_gouseiShine.x = stage.stageWidth / 2;
-			_gouseiShine.y = stage.stageHeight / 2;
-			addChild(_gouseiShine);
+			_backEffect = new Sprite();
+			addChild(_backEffect);
 			
 			_base.scaleX = 0.3;
 			_base.scaleY = 0.3;
@@ -56,9 +55,8 @@ package game
 
 			_flashScreen = new Quad(stage.stageWidth,stage.stageHeight,0xFFFFFF);
 			_flashScreen.alpha = 0;
-			addChild(_flashScreen);
-			
-			
+			addChild(_flashScreen);			
+
 		}
 		
 		public function start():void
@@ -129,7 +127,7 @@ package game
 						Tween24.tween(_material[i],0.4).x(centerX - _base.width / 2).y(centerY - _base.height / 2).scaleXY(0.3,0.3),
 						Tween24.parallel(
 							Tween24.tween(_material[i],0.2).alpha(0),
-							gouseiShine()
+							addLightLine(Util.getRandomRange(8,16))
 						)
 					)
 				);
@@ -152,7 +150,40 @@ package game
 				Tween24.tween(_gouseiShine,0.1).alpha(0)
 			);
 		}
-		
-		
+
+		private function addLightLine(num:int = 10):Tween24
+		{
+			var tween:Array = [];
+			for(var i:int = 0;i < num;i++) {
+				var light:ImageLoader = new ImageLoader('/img/line.png',10,10);
+				light.x = stage.stageWidth / 2;
+				light.y = stage.stageHeight / 2;
+				light.pivotX = light.width;
+				light.scaleX = 100;
+				light.scaleY = 5;
+				light.rotation = (Math.PI * 2) / num * i;
+				light.color = 0x60C0E0;
+				light.blendMode = BlendMode.ADD;
+				light.alpha = 0;
+				_backEffect.addChild(light);
+				tween.push(
+					Tween24.serial(
+						Tween24.prop(light).alpha(1),
+						Tween24.tween(light, 1, Ease24._4_QuartOut).$$rotation(Math.random() - 0.5).scaleXY(200, 0).onComplete(removeImage, light)
+					)
+				);
+			}
+			
+			return Tween24.parallel(tween);
+		}
+	
+		private function removeImage(image:ImageLoader):void
+		{
+			if (image.parent == null)
+				return;
+			
+			image.dispose();
+			image.parent.removeChild(image);
+		}		
 	}
 }
