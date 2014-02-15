@@ -17,7 +17,7 @@ package game
 		private var _flashScreen:Quad;
 
 		private var _backEffect:Sprite;
-		private var _gouseiShine:CardShine;
+//		private var _gouseiShine:CardShine;
 		
 		public function GouseiAnimation(base:ImageLoader,material:Vector.<ImageLoader>)
 		{
@@ -127,7 +127,8 @@ package game
 						Tween24.tween(_material[i],0.4).x(centerX - _base.width / 2).y(centerY - _base.height / 2).scaleXY(0.3,0.3),
 						Tween24.parallel(
 							Tween24.tween(_material[i],0.2).alpha(0),
-							addLightLine(Util.getRandomRange(8,16))
+							addLightLine(Util.getRandomRange(8,16)),
+							Tween24.func(addStarParticle,Util.getRandomRange(24,32))
 						)
 					)
 				);
@@ -140,15 +141,6 @@ package game
 				materialTween
 			);
 			
-		}
-
-		private function gouseiShine():Tween24
-		{
-			return Tween24.serial(
-				Tween24.func(_gouseiShine.drawShines),
-				Tween24.tween(_gouseiShine,0.1).alpha(0.2),
-				Tween24.tween(_gouseiShine,0.1).alpha(0)
-			);
 		}
 
 		private function addLightLine(num:int = 10):Tween24
@@ -165,18 +157,52 @@ package game
 				light.color = 0x60C0E0;
 				light.blendMode = BlendMode.ADD;
 				light.alpha = 0;
+
 				_backEffect.addChild(light);
 				tween.push(
 					Tween24.serial(
-						Tween24.prop(light).alpha(1),
-						Tween24.tween(light, 1, Ease24._4_QuartOut).$$rotation(Math.random() - 0.5).scaleXY(200, 0).onComplete(removeImage, light)
+						Tween24.prop(light).alpha(0.2),
+						Tween24.tween(light, 1, Ease24._4_QuartOut).$$rotation(Math.random() - 0.5).alpha(0.6).scaleXY(200, 0).onComplete(removeImage, light)
 					)
 				);
 			}
 			
 			return Tween24.parallel(tween);
 		}
-	
+
+		private function addStarParticle(num:int = 30):void
+		{
+			var tween:Array = [];
+			for(var i:int = 0;i < num;i++) {
+				var light:ImageLoader = new ImageLoader('/img/star.png',10,10);	
+				light.x = (stage.stageWidth / 2)  + Math.random() * 100 - 50;
+				light.y = (stage.stageHeight / 2) + Math.random() * 100 - 50;
+				light.rotation = -0.2;
+				light.blendMode = BlendMode.ADD;
+				light.color = 0x60C0E0;
+				light.alpha = 0
+				_backEffect.addChild(light);
+
+				var dir:Number = Math.random() * (Math.PI * 2);
+				//距離の減算によって速度を調節
+				var speed:Number = 200 + (Math.random() * 800);
+				
+				tween.push(Tween24.parallel(
+					Tween24.prop(light).alpha(0.6),
+					Tween24.tween(light, 1).xy((stage.stageWidth / 2) + Math.cos(dir) * speed,(stage.stageHeight / 2) + Math.sin(dir) * speed).rotation(5),
+					Tween24.tween(light, 1, Ease24._4_QuartIn).alpha(0)
+				).onUpdate(function():void
+				{
+					var scale:Number = 0.5 + Math.random() * 3;
+					light.scaleX = scale;
+					light.scaleY = scale;
+				}).onComplete(removeImage, light));
+			}
+			
+			Tween24.parallel(tween).play();
+		}
+		
+		
 		private function removeImage(image:ImageLoader):void
 		{
 			if (image.parent == null)
@@ -184,6 +210,14 @@ package game
 			
 			image.dispose();
 			image.parent.removeChild(image);
+		}		
+
+		private function removeQuad(q:Quad):void
+		{
+			if (q == null)
+				return;
+			
+			q.dispose();
 		}		
 	}
 }
