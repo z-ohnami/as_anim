@@ -1,8 +1,6 @@
 package game
 {
 	
-	import game.ImageLoader;
-	
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
@@ -20,17 +18,7 @@ package game
 			
 			stage.color = 0x000000;
 
-			var baseCard:ImageLoader = new ImageLoader('/img/card1.png',96,144);
-//			addChild(baseCard);
-
-			var materialCard:Vector.<ImageLoader> = new Vector.<ImageLoader>;
-			for(var i:Number = 0;i < 5;i++) {
-				var material:ImageLoader = new ImageLoader('/img/card'+(i+1)+'.png',48,72);
-//				addChild(material);
-				materialCard.push(material);
-			}
-			
-			var animation:GouseiAnimation = new GouseiAnimation(baseCard,materialCard);
+			var animation:GouseiAnimation = new GouseiAnimation(new GouseiAnimationData());
 			addChild(animation);
 			animation.start();
 			

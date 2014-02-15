@@ -17,13 +17,12 @@ package game
 		private var _flashScreen:Quad;
 
 		private var _backEffect:Sprite;
-//		private var _gouseiShine:CardShine;
 		
-		public function GouseiAnimation(base:ImageLoader,material:Vector.<ImageLoader>)
+		public function GouseiAnimation(animationData:GouseiAnimationData)
 		{
-			_base = base;
-			_material = material;
-			_materialLength = material.length;
+			_base = animationData.baseCard;
+			_material = animationData.materialCard;
+			_materialLength = _material.length;
 			
 			addEventListener(Event.ADDED_TO_STAGE,init);
 			
