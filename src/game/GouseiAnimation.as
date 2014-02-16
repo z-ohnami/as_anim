@@ -4,9 +4,12 @@ package game
 	import a24.tween.Tween24;
 	
 	import starling.display.BlendMode;
+	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 	
 	public class GouseiAnimation extends Sprite
 	{
@@ -15,9 +18,15 @@ package game
 		private var _materialLength:int = 0;
 		
 		private var _flashScreen:Quad;
-
 		private var _backEffect:Sprite;
+		private var _panel:Sprite;
 		
+		private var _barContentImage:Image;
+		[Embed(source="/img/testWaku.xml", mimeType="application/octet-stream")]
+		public static const WakuXml:Class;
+		[Embed(source="/img/testWaku.png")]
+		public static const WakuTexture:Class;
+
 		public function GouseiAnimation(animationData:GouseiAnimationData)
 		{
 			_base = animationData.baseCard;
@@ -54,8 +63,10 @@ package game
 
 			_flashScreen = new Quad(stage.stageWidth,stage.stageHeight,0xFFFFFF);
 			_flashScreen.alpha = 0;
-			addChild(_flashScreen);			
+			addChild(_flashScreen);
 
+			createPanel();
+			
 		}
 		
 		public function start():void
@@ -68,7 +79,10 @@ package game
 				),
 				gouseiAction(),
 				flashScreen(),
-				showDownBaseCard()
+				Tween24.parallel(
+					showDownBaseCard(),
+					showPanel()
+				)
 			).play();
 		}
 		
@@ -218,5 +232,46 @@ package game
 			
 			q.dispose();
 		}		
+		
+		private function createPanel():void
+		{
+			var texture:Texture = Texture.fromBitmap(new WakuTexture());
+			var xml:XML = XML(new WakuXml());
+			var atlas:TextureAtlas = new TextureAtlas(texture, xml);
+
+			var wakuTexture:Texture = atlas.getTexture("waku");
+			var wakuImage:Image = new Image(wakuTexture);
+
+			var barTexture:Texture = atlas.getTexture("bar_waku");
+			var barImage:Image = new Image(barTexture);
+
+			var barContentTexture:Texture = atlas.getTexture("bar_content");
+			_barContentImage = new Image(barContentTexture);
+			
+			_panel = new Sprite();
+			_panel.addChild(wakuImage);
+			_panel.addChild(barImage);
+			_panel.addChild(_barContentImage);
+			addChild(_panel);
+			
+			_panel.alpha = 0;
+			_panel.x = stage.stageWidth / 2 - _panel.width / 2;
+			_panel.y = stage.stageHeight - 240;
+
+			barImage.x = _panel.x + ((_panel.width - barImage.width) / 2);
+			barImage.y = 40;
+
+			_barContentImage.x = _panel.x + ((_panel.width - _barContentImage.width) / 2);
+			_barContentImage.y = 40;
+			_barContentImage.scaleX = 0;
+		}
+		
+		private function showPanel():Tween24
+		{
+			return Tween24.parallel(
+				Tween24.tween(_panel,1).alpha(1),
+				Tween24.tween(_barContentImage,2).scaleX(1)
+			);
+		}
 	}
 }

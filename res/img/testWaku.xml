@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:dc82177c5d6ee550b24be0dd4d19c712:592f88c206e1a270fdb55c3b0d47702c:8a1cead69dd8de26a00cd24e48d5ce85$ -->
+<TextureAtlas imagePath="testWaku.png">
+    <SubTexture name="bar_content" x="258" y="150" width="248" height="34" frameX="-5" frameY="-2" frameWidth="260" frameHeight="40"/>
+    <SubTexture name="bar_waku" x="2" y="150" width="254" height="36" frameX="-3" frameY="-2" frameWidth="260" frameHeight="40"/>
+    <SubTexture name="waku" x="2" y="2" width="276" height="146" frameX="-10" frameY="-15" frameWidth="300" frameHeight="180"/>
+</TextureAtlas>
