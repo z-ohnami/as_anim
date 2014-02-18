@@ -1,6 +1,8 @@
 package
 {
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	
 	import game.Game;
 	
@@ -17,6 +19,9 @@ package
 		public function Main()
 		{
 			super();
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.align = StageAlign.TOP_LEFT;
+			stage.frameRate = 60;
 
 			var scale:Number = stage.fullScreenWidth / Main.SCREEN_WIDTH;
 
@@ -24,6 +29,7 @@ package
 			stage.stageHeight = SCREEN_HEIGHT * scale;
 			
 			mStarling = new Starling(Game,stage);
+//			mStarling.enableErrorChecking = true;
 			mStarling.start();
 
 		}
