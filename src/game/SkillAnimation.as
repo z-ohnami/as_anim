@@ -10,8 +10,10 @@ package game
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.extensions.PDParticleSystem;
+	import starling.text.BitmapFont;
 	import starling.text.TextField;
 	import starling.textures.Texture;
+	import starling.utils.Color;
 	
 	public class SkillAnimation extends Sprite
 	{
@@ -37,8 +39,13 @@ package game
 		
 		[Embed(source = '../particle/particle2.pex',mimeType = 'application/octet-stream')]
 		private static var ParticleData:Class;
-		
-		
+
+		[Embed(source="../../res/img/font.fnt", mimeType="application/octet-stream")]
+		public static const FontXml:Class;
+
+		[Embed(source = "../../res/img/font.png")]
+		public static const FontTexture:Class;
+
 		private var _playerDeck:Vector.<ImageLoader>;
 		private var _enemyDeck:Vector.<ImageLoader>;		
 		
@@ -85,6 +92,11 @@ package game
 			_black.alpha = 0;
 			addChild(_black);
 			
+			//font setting
+			var texture:Texture = Texture.fromBitmap(new FontTexture());
+			var xml:XML = XML(new FontXml());
+			TextField.registerBitmapFont(new BitmapFont(texture, xml));
+
 		}
 		
 		public function start():void
@@ -223,24 +235,43 @@ package game
 			
 			var delayTime:Number = 0;
 			for (var i:int=0;i<l;i++) {
-				var text:TextField = new TextField(60,30,'1234');
+				var text:TextField = new TextField(50,30,calcDamage());
 				var target:ImageLoader = _enemyDeck[i];
-				text.color = 0xFFFFFF;
-				text.x = target.x;
+				text.fontName = 'Arial';
+//				text.fontSize = BitmapFont.NATIVE_SIZE;
+//				text.color = 0xFFFFFF;
+				text.color = Color.WHITE;
+				text.x = target.x + 5;
 				text.y = target.y + target.height - 10;
+				text.vAlign = 'top';
+				text.hAlign = 'left';
 				text.alpha = 0;
+				text.scaleX = 2;
+				text.scaleY = 2;
 				addChild(text);
 				tween.push(
-					Tween24.serial(
-						Tween24.tween(text,0.2).alpha(1).delay(delayTime),
-						Tween24.tween(text,0.1).alpha(0).delay(delayTime)
-					)
+					Tween24.parallel(
+						Tween24.serial(
+							Tween24.tween(text,0.1).$xy(3,-10),
+							Tween24.tween(text,0.1).$xy(-3,10)
+						),
+						Tween24.serial(
+							Tween24.tween(text,0.2).alpha(1),
+							Tween24.wait(1),
+							Tween24.tween(text,0.2).alpha(0)
+						)
+					).delay(delayTime)
 				);
 				
-				delayTime += 0.02;
+				delayTime += 0.04;
 			}
 
 			return Tween24.parallel(tween);
+		}
+
+		private function calcDamage():String
+		{
+			return String(Util.getRandomRange(500,999));
 		}
 		
 		private function blackOut():Tween24
