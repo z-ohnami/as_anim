@@ -113,9 +113,11 @@ package game
 
 		private function beginTween():Tween24
 		{
-			return Tween24.parallel(
-				bootSkillTween(),
-				showTitle(),
+			return Tween24.serial(
+				Tween24.parallel(
+					bootSkillTween(),
+					showTitle()
+				),
 				blackOut()
 			);
 		}
@@ -127,23 +129,15 @@ package game
 			
 			var player:ImageLoader = _playerDeck[0];
 			circle.x = player.x;
-			circle.y = player.y;
-//			circle.pivotX = (circle.width / 2) - (player.width / 2);
-//			circle.pivotY = (circle.height / 2) - (player.height / 2);
+			circle.y = player.y - 40;
 
-//			circle.x = (stage.stageWidth / 2);
-//			circle.y = (stage.stageHeight / 2);
 			circle.pivotX = circle.width / 2;
 			circle.pivotY = circle.height / 2;
-
 			
 			circle.alpha = 0;
-
-//			var sx:int = circle.x - ((circle.x * 5) - circle.x);
-//			var sy:int = circle.y - ((circle.y * 5) - circle.y);
 			
 			return Tween24.serial(
-//				Tween24.tween(player,0.2,Ease24._3_CubicOut).y(player.y)
+				Tween24.tween(_playerDeck[0],0.4,Ease24._BackInOut).$y(-40),
 				Tween24.tween(circle,0.2).alpha(1),
 				Tween24.tween(circle,0.5).alpha(0).scaleXY(5,5)
 			);
@@ -152,10 +146,14 @@ package game
 		
 		private function showTitle():Tween24
 		{
-			var text:TextField = new TextField(300,80,'乱舞の太刀');
+			var text:TextField = new TextField(100,80,'乱舞の太刀');
 			text.color = 0xFFFFFF;
 			text.x = (stage.stageWidth - text.width) >> 1;
 			text.y = (stage.stageHeight - text.height) >> 1;
+			text.vAlign = 'top';
+			text.hAlign = 'left';
+			text.scaleX = 1.5;
+			text.scaleY = 1.5;
 			addChild(text);
 			
 			return Tween24.serial(
