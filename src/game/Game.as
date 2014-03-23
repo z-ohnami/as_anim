@@ -19,7 +19,7 @@ package game
 			stage.color = 0x000000;
 
 //			var animation:GouseiAnimation = new GouseiAnimation(new GouseiAnimationData());
-			var animation:SkillAnimation = new SkillAnimation(new DeckCardData(),new SkillEffect2() as SkillEffectBase);
+			var animation:SkillAnimation = new SkillAnimation(new DeckCardData(),new SkillEffect3() as SkillEffectBase);
 
 			addChild(animation);
 			animation.start();
