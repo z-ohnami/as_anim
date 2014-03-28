@@ -5,7 +5,6 @@ package game
 	
 	import starling.display.Image;
 	import starling.display.Quad;
-	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.textures.Texture;
 	
