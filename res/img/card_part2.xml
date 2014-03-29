@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="part2.png">
+	<!-- Created with Adobe Flash Professional version 13.1.0.226 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="1"  x="0"  y="0"  width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="2"  x="16" y="0"  width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="3"  x="32" y="0"  width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="4"  x="48" y="0"  width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="5"  x="0"  y="24" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="6"  x="16" y="24" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="7"  x="32" y="24" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="8"  x="48" y="24" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="9"  x="0"  y="48" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="10" x="16" y="48" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="11" x="32" y="48" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="12" x="48" y="48" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="13" x="0"  y="72" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="14" x="16" y="72" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="15" x="32" y="72" width="16" height="24" pivotX="0" pivotY="0"/>
+	<SubTexture name="16" x="48" y="72" width="16" height="24" pivotX="0" pivotY="0"/>
+</TextureAtlas>

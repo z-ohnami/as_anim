@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="part3.png">
+	<!-- Created with Adobe Flash Professional version 13.1.0.226 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="1"  x="0"  y="0"  width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="2"  x="8"  y="0"  width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="3"  x="16" y="0"  width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="4"  x="24" y="0"  width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="5"  x="32" y="0"  width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="6"  x="40" y="0"  width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="7"  x="48" y="0"  width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="8"  x="56" y="0"  width="8" height="12" pivotX="0" pivotY="0"/>
+
+	<SubTexture name="9"  x="0"  y="12" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="10" x="8"  y="12" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="11" x="16" y="12" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="12" x="24" y="12" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="13" x="32" y="12" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="14" x="40" y="12" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="15" x="48" y="12" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="16" x="56" y="12" width="8" height="12" pivotX="0" pivotY="0"/>
+
+	<SubTexture name="17" x="0"  y="24" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="18" x="8"  y="24" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="19" x="16" y="24" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="20" x="24" y="24" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="21" x="32" y="24" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="22" x="40" y="24" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="23" x="48" y="24" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="24" x="56" y="24" width="8" height="12" pivotX="0" pivotY="0"/>
+
+	<SubTexture name="25" x="0"  y="36" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="26" x="8"  y="36" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="27" x="16" y="36" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="28" x="24" y="36" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="29" x="32" y="36" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="30" x="40" y="36" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="31" x="48" y="36" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="32" x="56" y="36" width="8" height="12" pivotX="0" pivotY="0"/>
+
+	<SubTexture name="33" x="0"  y="48" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="34" x="8"  y="48" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="35" x="16" y="48" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="36" x="24" y="48" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="37" x="32" y="48" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="38" x="40" y="48" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="39" x="48" y="48" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="40" x="56" y="48" width="8" height="12" pivotX="0" pivotY="0"/>
+
+	<SubTexture name="41" x="0"  y="60" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="42" x="8"  y="60" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="43" x="16" y="60" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="44" x="24" y="60" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="45" x="32" y="60" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="46" x="40" y="60" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="47" x="48" y="60" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="48" x="56" y="60" width="8" height="12" pivotX="0" pivotY="0"/>
+
+	<SubTexture name="49" x="0"  y="72" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="50" x="8"  y="72" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="51" x="16" y="72" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="52" x="24" y="72" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="53" x="32" y="72" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="54" x="40" y="72" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="55" x="48" y="72" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="56" x="56" y="72" width="8" height="12" pivotX="0" pivotY="0"/>
+
+	<SubTexture name="57" x="0"  y="84" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="58" x="8"  y="84" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="59" x="16" y="84" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="60" x="24" y="84" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="61" x="32" y="84" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="62" x="40" y="84" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="63" x="48" y="84" width="8" height="12" pivotX="0" pivotY="0"/>
+	<SubTexture name="64" x="56" y="84" width="8" height="12" pivotX="0" pivotY="0"/>
+
+</TextureAtlas>
