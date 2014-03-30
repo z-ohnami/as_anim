@@ -19,7 +19,8 @@ package game
 			stage.color = 0x000000;
 
 //			var animation:GouseiAnimation = new GouseiAnimation(new GouseiAnimationData());
-			var animation:EvoAnimation = new EvoAnimation(new EvoAnimationData());
+//			var animation:EvoAnimation = new EvoAnimation(new EvoAnimationData());
+			var animation:RaidStartAnimation = new RaidStartAnimation();
 //			var animation:SkillAnimation = new SkillAnimation(new DeckCardData(),new SkillEffect5() as SkillEffectBase);
 
 			addChild(animation);
