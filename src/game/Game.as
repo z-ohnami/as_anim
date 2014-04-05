@@ -20,7 +20,8 @@ package game
 
 //			var animation:GouseiAnimation = new GouseiAnimation(new GouseiAnimationData());
 //			var animation:EvoAnimation = new EvoAnimation(new EvoAnimationData());
-			var animation:RaidStartAnimation = new RaidStartAnimation();
+//			var animation:RaidStartAnimation = new RaidStartAnimation();
+			var animation:LoginBonusAnimation = new LoginBonusAnimation();
 //			var animation:SkillAnimation = new SkillAnimation(new DeckCardData(),new SkillEffect5() as SkillEffectBase);
 
 			addChild(animation);

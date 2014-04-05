@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="名称未設定 - 1.png">
+	<!-- Created with Adobe Flash Professional version 13.1.0.226 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="hanko" x="0" y="0" width="80" height="80" pivotX="0" pivotY="0"/>
+	<SubTexture name="logo" x="0" y="80" width="256" height="64" pivotX="0" pivotY="0"/>
+	<SubTexture name="vege1" x="0" y="144" width="80" height="80" pivotX="0" pivotY="0"/>
+	<SubTexture name="vege2" x="80" y="144" width="80" height="80" pivotX="0" pivotY="0"/>
+	<SubTexture name="vege3" x="160" y="144" width="80" height="80" pivotX="0" pivotY="0"/>
+	<SubTexture name="vege4" x="0" y="224" width="80" height="80" pivotX="0" pivotY="0"/>
+</TextureAtlas>
