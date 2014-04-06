@@ -12,7 +12,7 @@ package game
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
-	public class LoginBonusAnimation extends Sprite
+	public class LoginBonusAnimation extends Animation
 	{
 		private var _white:Quad;
 		private var _black:Quad;
@@ -95,6 +95,15 @@ package game
 			_white = new Quad(stage.stageWidth,stage.stageHeight,0xFFFFFF);
 			_white.alpha = 0;
 			addChild(_white);
+
+			_title = 'ログインボーナス';
+			_rootTween = Tween24.serial(
+				//				Tween24.wait(2)
+				logoTween(),
+				hankoTween(),
+				messageTween(),
+				endTween()
+			);
 			
 		}
 
@@ -153,16 +162,16 @@ package game
 			addChild(map);
 		}
 		
-		public function start():void
-		{
-			Tween24.serial(
-//				Tween24.wait(2)
-				logoTween(),
-				hankoTween(),
-				messageTween(),
-				endTween()
-			).play();
-		}
+//		public function start():void
+//		{
+//			Tween24.serial(
+////				Tween24.wait(2)
+//				logoTween(),
+//				hankoTween(),
+//				messageTween(),
+//				endTween()
+//			).play();
+//		}
 
 		private function logoTween():Tween24
 		{

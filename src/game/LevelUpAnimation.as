@@ -3,18 +3,15 @@ package game
 	import a24.tween.Ease24;
 	import a24.tween.Tween24;
 	
-	import jp.nium.core.debug.Log;
-	
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.filters.ColorMatrixFilter;
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
-	public class LevelUpAnimation extends Sprite
+	public class LevelUpAnimation extends Animation
 	{
 		private var _white:Quad;
 		private var _black:Quad;
@@ -77,6 +74,18 @@ package game
 			_white = new Quad(stage.stageWidth,stage.stageHeight,0xFFFFFF);
 			_white.alpha = 0;
 			addChild(_white);
+
+			//create root tween
+			_title = 'レベルアップ';
+			_rootTween = Tween24.serial(
+				cardTween(),
+				lineAddTween(),
+				Tween24.parallel(
+					logoTween(),
+					Tween24.func(rotateLine)
+				),
+				endTween()
+			);
 			
 		}
 
@@ -106,19 +115,23 @@ package game
 			addChild(_backLine);			
 		}
 		
-		public function start():void
-		{
-			Tween24.serial(
-				cardTween(),
-				lineAddTween(),
-				Tween24.parallel(
-					logoTween(),
-					Tween24.func(rotateLine)
-				),
-				endTween()
-			).play();
-		}
-
+//		public function start(onTweenComplete:Function):void
+//		{
+//			var tween:Tween24 = Tween24.serial(
+//				cardTween(),
+//				lineAddTween(),
+//				Tween24.parallel(
+//					logoTween(),
+//					Tween24.func(rotateLine)
+//				),
+//				endTween()
+//			);
+//			
+//			tween.addEventListener(Tween24Event.COMPLETE,onTweenComplete);
+//			tween.play();
+//			
+//		}
+		
 		private function cardTween():Tween24
 		{
 			return Tween24.loop(4,
