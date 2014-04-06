@@ -39,36 +39,36 @@ package game
 //			var animation:RaidStartAnimation = new RaidStartAnimation();
 //			var animation:LoginBonusAnimation = new LoginBonusAnimation();
 //			var animation:LevelUpAnimation = new LevelUpAnimation();
-//			var animation:SkillAnimation1 = new SkillAnimation1();
+			var animation:SkillAnimation3 = new SkillAnimation3();
 //
-//			addChild(animation);
-//			animation.start(
-//				function():void {
-//					removeChild(animation);
-//				}
-//			);
+			addChild(animation);
+			animation.start(
+				function():void {
+					removeChild(animation);
+				}
+			);
 
 			// all play entry
-			createText();
-			var sheet:Quad = new Quad(stage.stageWidth,stage.stageHeight,0x000000);
-			sheet.alpha = 0;
-			addChild(sheet);
-			_classArray = [
-				GouseiAnimation,
-				EvoAnimation,
-				RaidStartAnimation,
-				LevelUpAnimation,
-				LoginBonusAnimation,
-				SkillAnimation1,
-				SkillAnimation2,
-				SkillAnimation3,
-				SkillAnimation4,
-				SkillAnimation5
-			];
-
-			_total = _classArray.length;
-			
-			sheet.addEventListener(TouchEvent.TOUCH,onTouch);
+//			createText();
+//			var sheet:Quad = new Quad(stage.stageWidth,stage.stageHeight,0x000000);
+//			sheet.alpha = 0;
+//			addChild(sheet);
+//			_classArray = [
+//				GouseiAnimation,
+//				EvoAnimation,
+//				RaidStartAnimation,
+//				LevelUpAnimation,
+//				LoginBonusAnimation,
+//				SkillAnimation1,
+//				SkillAnimation2,
+//				SkillAnimation3,
+//				SkillAnimation4,
+//				SkillAnimation5
+//			];
+//
+//			_total = _classArray.length;
+//			
+//			sheet.addEventListener(TouchEvent.TOUCH,onTouch);
 			
 		}
 

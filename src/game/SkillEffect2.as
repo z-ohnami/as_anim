@@ -58,7 +58,8 @@ package game
 							Tween24.tween(ring,speed,Ease24._6_ExpoIn).y(20).scaleX(1.5),
 							Tween24.tween(ring,0.1).alpha(0)
 						),
-						Tween24.tween(ring,0.4).alpha(1)
+						Tween24.tween(ring,0.4).alpha(1),
+						damageEnemyTween()
 					).delay(delayTime)
 				);
 

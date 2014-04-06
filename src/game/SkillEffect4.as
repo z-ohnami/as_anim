@@ -95,6 +95,9 @@ package game
 						)
 					),
 					Tween24.tween(screen,0.5,Ease24._3_CubicIn).alpha(0)
+				),
+				Tween24.loop(14,
+					damageEnemyTween()
 				)
 			);
 

@@ -85,23 +85,29 @@ package game
 							Tween24.prop(gravity).alpha(0.5),
 							Tween24.parallel(
 								Tween24.tween(gravity,0.7,Ease24._7_CircIn).scaleXY(1,1).alpha(1),
-								addCircleTween()
+								addCircleTween(),
+								damageEnemyTween()
 							),
 							Tween24.parallel(
 								Tween24.tween(gravity,0.5,Ease24._7_CircIn).scaleXY(0.5,0.5),
-								addCircleTween(true)
+								addCircleTween(true),
+								damageEnemyTween()
 							),
 							Tween24.parallel(
 								Tween24.tween(gravity,0.4,Ease24._7_CircIn).scaleXY(0.2,0.2),
-								addCircleTween()
+								addCircleTween(),
+								damageEnemyTween()
 							)
 						),
 						Tween24.parallel(
-							Tween24.tween(top,2).rotation(4),
-							Tween24.tween(back,2).rotation(-4)
+							Tween24.tween(top,2).rotation(5),
+							Tween24.tween(back,2).rotation(-5)
 						)
 					),
-					Tween24.tween(gravity,0.3,Ease24._1_SineIn).alpha(0).scaleXY(2,2),
+					Tween24.parallel(
+						Tween24.tween(gravity,0.3,Ease24._1_SineIn).alpha(0).scaleXY(2,2),
+						damageEnemyTween()
+					),
 					Tween24.tween(screen,0.5,Ease24._3_CubicIn).alpha(0)
 				)
 			);

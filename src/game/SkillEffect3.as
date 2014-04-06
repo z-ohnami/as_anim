@@ -4,6 +4,7 @@ package game
 	import a24.tween.Tween24;
 	
 	import starling.display.Image;
+	import starling.display.Quad;
 	import starling.events.Event;
 	import starling.textures.Texture;
 	
@@ -18,7 +19,7 @@ package game
 		public function SkillEffect3()
 		{
 			//set skill title
-			super('アクアフレッシュ');
+			super('アクアブレス');
 			addEventListener(Event.ADDED_TO_STAGE,init);
 			
 		}
@@ -32,6 +33,12 @@ package game
 		private function setTween():Tween24
 		{
 			var tween:Array = [];
+
+			var screen:Quad = new Quad(stage.stageWidth,stage.stageHeight,0x6495ed);
+			screen.alpha = 0;
+	
+			addChild(screen);
+			
 //加算合成するともっと綺麗になりそう
 			//main aqua
 			var aqua:Image = new Image(Texture.fromBitmap(new SkillAquaImage()));
@@ -45,7 +52,16 @@ package game
 			aqua.scaleY = 0;
 			
 			tween.push(
-				Tween24.tween(aqua,1.5,Ease24._1_SineInOut).scaleXY(3,3).alpha(0).rotation(3)
+				Tween24.serial(
+					Tween24.parallel(
+						Tween24.tween(screen,0.3,Ease24._2_QuadOut).alpha(0.3),
+						Tween24.tween(aqua,1.6,Ease24._1_SineInOut).scaleXY(3,3).alpha(0).rotation(4),
+						Tween24.loop(4,
+							damageEnemyTween()
+						)
+					),
+					Tween24.tween(screen,0.4,Ease24._3_CubicIn).alpha(0)
+				)
 			);
 
 			var scaleArray:Array = [0.2,0.1,0.15];
@@ -63,7 +79,7 @@ package game
 //				if(i % 2 == 0) {
 //					speed -= (Util.getRandomRange(1,3) * 0.1);
 //				}
-					
+
 				tween.push(
 					Tween24.serial(
 						Tween24.tween(ball,0.6).alpha(0.6).$y(-50),
