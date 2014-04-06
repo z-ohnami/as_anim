@@ -8,8 +8,8 @@ package game
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.text.TextField;
 	import starling.textures.Texture;
-	import starling.textures.TextureAtlas;
 	
 	public class GouseiAnimation extends Animation
 	{
@@ -20,6 +20,16 @@ package game
 		private var _flashScreen:Quad;
 		private var _backEffect:Sprite;
 		private var _panel:Sprite;
+
+		private var _black:Quad;
+		private var _blackFlg:Boolean = false;
+
+		private var _messagePanel:Sprite;
+		private var _messageText:TextField;
+		
+		private var _bg:Image;
+		[Embed(source = '../../res/img/bg2.png')]
+		private static var Bg:Class;
 		
 		private var _barContentImage:Image;
 		[Embed(source="/img/testWaku.xml", mimeType="application/octet-stream")]
@@ -43,21 +53,24 @@ package game
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,init);
 
+			_bg = new Image(Texture.fromBitmap(new Bg()));
+			addChild(_bg);
+
+			_black = new Quad(stage.stageWidth,stage.stageHeight,0x000000);
+			_black.alpha = 0;
+			addChild(_black);
+			
 			_backEffect = new Sprite();
 			addChild(_backEffect);
 			
-//			_base.scaleX = 0.3;
-//			_base.scaleY = 0.3;
-			_base.x = stage.stageWidth / 2 - _base.width / 2;
-			_base.y = stage.stageHeight / 2 + _base.height / 2;
+			_base.x = (stage.stageWidth - _base.width) >> 1;
+			_base.y = (stage.stageHeight + _base.height) >> 1;
 			addChild(_base);
 			
-			var posX:int = (stage.stageWidth - (_material[0].width * _materialLength) ) / 2;
+			var posX:int = 0;
 			for(var i:int=0;i < _materialLength;i++) {
-//				_material[i].scaleX = 0.15;
-//				_material[i].scaleY = 0.15;
 				_material[i].x = posX;
-				_material[i].y = stage.stageHeight - (_material[i].height * 2);
+				_material[i].y = stage.stageHeight - _material[i].height;
 				addChild(_material[i]);
 
 				posX += _material[i].width;
@@ -73,17 +86,27 @@ package game
 			_rootTween = Tween24.serial(
 					Tween24.wait(0.3),
 					Tween24.parallel(
+						sceneChange(),
 						raiseBaseCard(),
 						raiseMaterialCard()
 					),
 					gouseiAction(),
 					flashScreen(),
 					Tween24.parallel(
+						sceneChange(),
 						showDownBaseCard(),
 						showPanel()
-					)
+					),
+					Tween24.wait(1.5)
 				);
+		}
+
+		private function sceneChange():Tween24
+		{
+			var num:int = (_blackFlg) ? 0 : 1;
+			_blackFlg = (_blackFlg) ? false : true;
 			
+			return Tween24.tween(_black,1,Ease24._2_QuadOut).alpha(num);
 		}
 
 		private function raiseBaseCard():Tween24
@@ -98,7 +121,7 @@ package game
 			var l:int = _material.length;
 			var posX:int = 0;
 			for(var i:int=0;i < l;i++) {
-				tween.push(Tween24.tween(_material[i],0.5,Ease24._1_SineInOut).y(-(_material[i].height)).delay(0.4 + (i * 0.1)));
+				tween.push(Tween24.tween(_material[i],0.5,Ease24._1_SineInOut).y(-1 * _material[i].height).delay(0.4 + (i * 0.1)));
 			}
 
 			return Tween24.parallel(tween);
@@ -131,26 +154,26 @@ package game
 			var currentDegree:int = 0;
 			
 			var materialTween:Array = [];
-			for(var i:int=0;i < _materialLength;i++) {
-				
+			
+			var delayTime:Number = 0.4;
+			
+			for(var i:int=0;i < _materialLength;i++) {	
 				materialTween.push(
 					Tween24.serial(
 						Tween24.prop(_material[i]).x(centerX + distance * Math.cos(currentDegree * Math.PI / 180)).y(centerY + distance * Math.sin(currentDegree * Math.PI / 180)),
-//						Tween24.tween(_material[i],0.4).x(centerX - _material[i].width / 2).y(centerY - _material[i].height / 2).scaleXY(0.3,0.3),
-//						Tween24.tween(_material[i],0.4).x(centerX - _base.width / 2).y(centerY - _base.height / 2).scaleXY(0.3,0.3),
-						Tween24.tween(_material[i],0.4).x(centerX - _base.width / 2).y(centerY - _base.height / 2),
+						Tween24.tween(_material[i],0.6,Ease24._1_SineIn).x(centerX - _base.width / 2).y(centerY - _base.height / 2),
 						Tween24.parallel(
 							Tween24.tween(_material[i],0.2).alpha(0),
 							addLightLine(Util.getRandomRange(8,16)),
 							Tween24.func(addStarParticle,Util.getRandomRange(24,32))
 						)
-					)
+					).delay(delayTime * i)
 				);
 				
 				currentDegree += (180 / _materialLength);
 			}
 
-			return Tween24.serial(
+			return Tween24.parallel(
 				Tween24.prop(_base).x(centerX - _base.width / 2).y(centerY - _base.height / 2),
 				materialTween
 			);
@@ -236,43 +259,30 @@ package game
 		
 		private function createPanel():void
 		{
-			var texture:Texture = Texture.fromBitmap(new WakuTexture());
-			var xml:XML = XML(new WakuXml());
-			var atlas:TextureAtlas = new TextureAtlas(texture, xml);
-
-			var wakuTexture:Texture = atlas.getTexture("waku");
-			var wakuImage:Image = new Image(wakuTexture);
-
-			var barTexture:Texture = atlas.getTexture("bar_waku");
-			var barImage:Image = new Image(barTexture);
-
-			var barContentTexture:Texture = atlas.getTexture("bar_content");
-			_barContentImage = new Image(barContentTexture);
 			
-			_panel = new Sprite();
-			_panel.addChild(wakuImage);
-			_panel.addChild(barImage);
-			_panel.addChild(_barContentImage);
-			addChild(_panel);
+			_messagePanel = new Sprite();
+			var panelBg:Quad = new Quad(280,120,0x87ceeb);
+			panelBg.alpha = 0.8;
+			_messageText = new TextField(280,120,'レベルがあがったよ。\nよかったね。','Verdana',18);
 			
-			_panel.alpha = 0;
-			_panel.x = stage.stageWidth / 2 - _panel.width / 2;
-			_panel.y = stage.stageHeight - 240;
+			_messagePanel.alpha = 0;
+			_messagePanel.addChild(panelBg);
+			_messagePanel.addChild(_messageText);
 
-			barImage.x = _panel.x + ((_panel.width - barImage.width) / 2);
-			barImage.y = 40;
-
-			_barContentImage.x = _panel.x + ((_panel.width - _barContentImage.width) / 2);
-			_barContentImage.y = 40;
-			_barContentImage.scaleX = 0;
+			_messagePanel.x = 20;
+			_messagePanel.y = stage.stageHeight - _messagePanel.height - 20;
+			
+			addChild(_messagePanel);
+			
 		}
 		
 		private function showPanel():Tween24
 		{
-			return Tween24.parallel(
-				Tween24.tween(_panel,1).alpha(1),
-				Tween24.tween(_barContentImage,2).scaleX(1)
+			return Tween24.serial(
+				Tween24.wait(0.5),
+				Tween24.tween(_messagePanel,1).alpha(1)
 			);
 		}
+
 	}
 }

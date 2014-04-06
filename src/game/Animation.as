@@ -28,7 +28,7 @@ package game
 			_black = new Quad(stage.stageWidth,stage.stageHeight,0x000000);
 			addChild(_black);
 			
-			_titleText = new TextField(stage.stageWidth,80,_title,'Verdana',24,0xFFFFFF);
+			_titleText = new TextField(stage.stageWidth,80,'(お題)\n'+_title,'Verdana',20,0xFFFFFF);
 			_titleText.hAlign = 'center';
 			_titleText.x = (stage.stageWidth - _titleText.width) >> 1;
 			_titleText.y = (stage.stageHeight - _titleText.height) >> 1;
@@ -36,9 +36,10 @@ package game
 
 			Tween24.serial(
 				Tween24.tween(_titleText,0.2).alpha(1),
-				Tween24.wait(2),
+				Tween24.wait(1),
 				Tween24.func(hidePrompt),
-				_rootTween
+				_rootTween,
+				Tween24.wait(0.7)
 			).play();
 			
 		}
