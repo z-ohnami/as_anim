@@ -19,7 +19,7 @@ package game
 		public function SkillEffect4()
 		{
 			//set skill title
-			super('爆風スランプ');
+			super('エクスプロード');
 			addEventListener(Event.ADDED_TO_STAGE,init);
 			
 		}

@@ -21,14 +21,16 @@ package game
 			super();
 		}
 		
-		public function start(onTweenComplete:Function):void
+		public function start(onTweenComplete:Function,current:int = 0,total:int = 0):void
 		{
 			_rootTween.addEventListener(Tween24Event.COMPLETE,onTweenComplete);
 
 			_black = new Quad(stage.stageWidth,stage.stageHeight,0x000000);
 			addChild(_black);
 			
-			_titleText = new TextField(stage.stageWidth,80,'(お題)\n'+_title,'Verdana',20,0xFFFFFF);
+			var text:String = '[作品名]\n' + _title + '\n' + current + '/' + total;
+			
+			_titleText = new TextField(stage.stageWidth,80,text,'Verdana',20,0xFFFFFF);
 			_titleText.hAlign = 'center';
 			_titleText.x = (stage.stageWidth - _titleText.width) >> 1;
 			_titleText.y = (stage.stageHeight - _titleText.height) >> 1;
