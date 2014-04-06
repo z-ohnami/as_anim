@@ -4,9 +4,9 @@ package game
 	import a24.tween.Ease24;
 	import a24.tween.Tween24;
 	
-	import starling.display.Sprite;
 	import starling.display.Image;
 	import starling.display.Quad;
+	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.text.BitmapFont;
 	import starling.text.TextField;
@@ -35,8 +35,8 @@ package game
 		[Embed(source = "../../res/img/font.png")]
 		public static const FontTexture:Class;
 
-		private var _playerDeck:Vector.<ImageLoader>;
-		private var _enemyDeck:Vector.<ImageLoader>;		
+		protected var _playerDeck:Vector.<ImageLoader>;
+		protected var _enemyDeck:Vector.<ImageLoader>;		
 		private var _skillEffect:SkillEffectBase;
 		
 		public function SkillAnimation(deck:DeckCardData,skillEffect:SkillEffectBase):void
@@ -45,7 +45,8 @@ package game
 			_playerDeck = deck.playerDeck;
 			_enemyDeck = deck.enemyDeck;
 			_skillEffect = skillEffect;
-
+			_skillEffect.enemyDeck = deck.enemyDeck;
+			
 			addEventListener(Event.ADDED_TO_STAGE,init);
 		}
 		
@@ -96,6 +97,7 @@ package game
 			_rootTween = Tween24.serial(
 					beginTween(),
 					animateSkill(),
+					resetEnemyPosTween(),
 					whiteOut(),
 					showDamage()
 				);
@@ -182,6 +184,25 @@ package game
 			return Tween24.parallel(tween);
 		}
 
+		private function resetEnemyPosTween():Tween24
+		{
+			var tween:Array = [];
+			
+			//reset enemy position
+			var card:ImageLoader = null;
+			var el:int = _enemyDeck.length;
+			var ex:int = ENEMY_DECK_INITIAL_POS_X;
+			for(var i:int = 0;i < el;i++) {
+				card = _enemyDeck[i];
+				tween.push(
+					Tween24.prop(card).xy(ex,ENEMY_DECK_INITIAL_POS_Y)
+				);
+				ex += (card.width);
+			}
+			
+			return Tween24.parallel(tween);
+		}
+		
 		private function showDamage():Tween24
 		{
 			var tween:Array = [];

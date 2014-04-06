@@ -21,7 +21,7 @@ package game
 		private function init(event:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,init);
-			_effectTween = setTween();			
+			_effectTween = setTween();
 		}
 		
 		private function setTween():Tween24
@@ -54,18 +54,25 @@ package game
 				addChild(skillImage);
 
 				tween.push( Tween24.parallel(
+					//slash scaling
 					Tween24.serial(
 						Tween24.prop(skillImage).scaleXY(1 * setting.scaleOffset,1 * setting.scaleOffset).rotation(setting.rotation),
 						Tween24.tween(skillImage,0.1).scaleXY(1 * setting.scaleOffset,1 * setting.scaleOffset),
 						Tween24.tween(skillImage,0.1).scaleXY(1.1 * setting.scaleOffset,1.1 * setting.scaleOffset),
 						Tween24.wait(0.05)
 					),
+					//slash display
 					Tween24.serial(
 						Tween24.tween(skillImage,0.1).alpha(0.7),
 						Tween24.tween(skillImage,0.1).alpha(1.0),
 						Tween24.tween(skillImage,0.6).alpha(0)
 					),
-					Tween24.tween(skillImage,0.3).$xy(setting.mx,setting.my)
+					//slash moving
+					Tween24.serial(
+						Tween24.tween(skillImage,0.3).$xy(setting.mx,setting.my),
+						damageEnemyTween()
+					)
+
 				).delay(delayTime));
 
 				delayTime += 0.08;
