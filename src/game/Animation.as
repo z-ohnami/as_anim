@@ -28,7 +28,8 @@ package game
 			_black = new Quad(stage.stageWidth,stage.stageHeight,0x000000);
 			addChild(_black);
 			
-			_titleText = new TextField(200,80,_title,'Verdana',24,0xFFFFFF);
+			_titleText = new TextField(stage.stageWidth,80,_title,'Verdana',24,0xFFFFFF);
+			_titleText.hAlign = 'center';
 			_titleText.x = (stage.stageWidth - _titleText.width) >> 1;
 			_titleText.y = (stage.stageHeight - _titleText.height) >> 1;
 			addChild(_titleText);

@@ -11,7 +11,7 @@ package game
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
-	public class EvoAnimation extends Sprite
+	public class EvoAnimation extends Animation
 	{
 		private var _base:ImageLoader;
 		private var _material:ImageLoader;
@@ -43,8 +43,10 @@ package game
 		[Embed(source="../../res/img/card_part3.xml", mimeType="application/octet-stream")]
 		private static const CardXml3:Class;
 		
-		public function EvoAnimation(animationData:EvoAnimationData)
+		public function EvoAnimation()
 		{
+			var animationData:EvoAnimationData = new EvoAnimationData();
+			
 			_base = animationData.baseCard;
 			_material = animationData.materialCard;
 			
@@ -118,18 +120,16 @@ package game
 			_after.alpha = 0;
 			addChild(_after);
 
-		}
-		
-		public function start():void
-		{
-			Tween24.serial(
-//				Tween24.wait(2)
+			_title = '進化';
+			_rootTween = Tween24.serial(
+				//				Tween24.wait(2)
 				startTween(),
 				evoTween(),
 				endTween()
-			).play();
+			);
+			
 		}
-
+		
 		private function startTween():Tween24
 		{
 			var cx:int = (stage.stageWidth) >> 1;

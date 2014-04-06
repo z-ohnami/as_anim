@@ -11,7 +11,7 @@ package game
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
-	public class GouseiAnimation extends Sprite
+	public class GouseiAnimation extends Animation
 	{
 		private var _base:ImageLoader;
 		private var _material:Vector.<ImageLoader>;
@@ -27,8 +27,10 @@ package game
 		[Embed(source="/img/testWaku.png")]
 		public static const WakuTexture:Class;
 
-		public function GouseiAnimation(animationData:GouseiAnimationData)
+		public function GouseiAnimation()
 		{
+			var animationData:GouseiAnimationData = new GouseiAnimationData();
+			
 			_base = animationData.baseCard;
 			_material = animationData.materialCard;
 			_materialLength = _material.length;
@@ -44,16 +46,16 @@ package game
 			_backEffect = new Sprite();
 			addChild(_backEffect);
 			
-			_base.scaleX = 0.3;
-			_base.scaleY = 0.3;
+//			_base.scaleX = 0.3;
+//			_base.scaleY = 0.3;
 			_base.x = stage.stageWidth / 2 - _base.width / 2;
 			_base.y = stage.stageHeight / 2 + _base.height / 2;
 			addChild(_base);
 			
 			var posX:int = (stage.stageWidth - (_material[0].width * _materialLength) ) / 2;
 			for(var i:int=0;i < _materialLength;i++) {
-				_material[i].scaleX = 0.15;
-				_material[i].scaleY = 0.15;
+//				_material[i].scaleX = 0.15;
+//				_material[i].scaleY = 0.15;
 				_material[i].x = posX;
 				_material[i].y = stage.stageHeight - (_material[i].height * 2);
 				addChild(_material[i]);
@@ -67,25 +69,23 @@ package game
 
 			createPanel();
 			
+			_title = '合成';
+			_rootTween = Tween24.serial(
+					Tween24.wait(0.3),
+					Tween24.parallel(
+						raiseBaseCard(),
+						raiseMaterialCard()
+					),
+					gouseiAction(),
+					flashScreen(),
+					Tween24.parallel(
+						showDownBaseCard(),
+						showPanel()
+					)
+				);
+			
 		}
-		
-		public function start():void
-		{
-			Tween24.serial(
-				Tween24.wait(0.3),
-				Tween24.parallel(
-					raiseBaseCard(),
-					raiseMaterialCard()
-				),
-				gouseiAction(),
-				flashScreen(),
-				Tween24.parallel(
-					showDownBaseCard(),
-					showPanel()
-				)
-			).play();
-		}
-		
+
 		private function raiseBaseCard():Tween24
 		{
 			return Tween24.tween(_base,1,Ease24._3_CubicInOut).y(-(_base.height));
@@ -137,7 +137,8 @@ package game
 					Tween24.serial(
 						Tween24.prop(_material[i]).x(centerX + distance * Math.cos(currentDegree * Math.PI / 180)).y(centerY + distance * Math.sin(currentDegree * Math.PI / 180)),
 //						Tween24.tween(_material[i],0.4).x(centerX - _material[i].width / 2).y(centerY - _material[i].height / 2).scaleXY(0.3,0.3),
-						Tween24.tween(_material[i],0.4).x(centerX - _base.width / 2).y(centerY - _base.height / 2).scaleXY(0.3,0.3),
+//						Tween24.tween(_material[i],0.4).x(centerX - _base.width / 2).y(centerY - _base.height / 2).scaleXY(0.3,0.3),
+						Tween24.tween(_material[i],0.4).x(centerX - _base.width / 2).y(centerY - _base.height / 2),
 						Tween24.parallel(
 							Tween24.tween(_material[i],0.2).alpha(0),
 							addLightLine(Util.getRandomRange(8,16)),

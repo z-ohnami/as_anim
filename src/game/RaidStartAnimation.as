@@ -11,7 +11,7 @@ package game
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
-	public class RaidStartAnimation extends Sprite
+	public class RaidStartAnimation extends Animation
 	{
 		private var _white:Quad;
 		private var _boss:Image;
@@ -112,17 +112,15 @@ package game
 			_white = new Quad(stage.stageWidth,stage.stageHeight,0xFFFFFF);
 			_white.alpha = 0;
 			addChild(_white);
-			
-		}
-		
-		public function start():void
-		{
-			Tween24.serial(
-//				Tween24.wait(2)
+
+			_title = 'レイドボス登場';
+			_rootTween = Tween24.serial(
+				//				Tween24.wait(2)
 				spotTween(),
 				slashTween(),
 				toBattleTween()
-			).play();
+			);
+			
 		}
 
 		private function spotTween():Tween24

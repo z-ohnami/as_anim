@@ -25,35 +25,42 @@ package game
 			removeEventListener(Event.ADDED_TO_STAGE,init);
 			
 			stage.color = 0x000000;
-			
-			var sheet:Quad = new Quad(stage.stageWidth,stage.stageHeight,0x000000);
-			sheet.alpha = 0;
-			addChild(sheet);
-			
+
+			//single play entry
 //			var animation:GouseiAnimation = new GouseiAnimation(new GouseiAnimationData());
 //			var animation:EvoAnimation = new EvoAnimation(new EvoAnimationData());
 //			var animation:RaidStartAnimation = new RaidStartAnimation();
 //			var animation:LoginBonusAnimation = new LoginBonusAnimation();
-			var animation:LevelUpAnimation = new LevelUpAnimation();
+//			var animation:LevelUpAnimation = new LevelUpAnimation();
 //			var animation:SkillAnimation = new SkillAnimation(new DeckCardData(),new SkillEffect5() as SkillEffectBase);
+//			var animation:SkillAnimation1 = new SkillAnimation1();
 
 //			addChild(animation);
 //			animation.start(
 //				function():void {
 //					removeChild(animation);
-//					trace('finished');
 //				}
 //			);
 			
-			
+
+			// all play entry
+			var sheet:Quad = new Quad(stage.stageWidth,stage.stageHeight,0x000000);
+			sheet.alpha = 0;
+			addChild(sheet);
 			classArray = [
+				GouseiAnimation,
+				EvoAnimation,
+				RaidStartAnimation,
 				LevelUpAnimation,
-				LoginBonusAnimation
+				LoginBonusAnimation,
+				SkillAnimation1,
+				SkillAnimation2,
+				SkillAnimation3,
+				SkillAnimation4,
+				SkillAnimation5
 			];
 
 			sheet.addEventListener(TouchEvent.TOUCH,onTouch);
-			
-//			playAnimation();
 			
 		}
 
@@ -75,7 +82,6 @@ package game
 			animation.start(
 				function():void {
 					removeChild(animation);
-					trace('finished');
 					if(classArray.length > 0) {
 						playAnimation();
 					}

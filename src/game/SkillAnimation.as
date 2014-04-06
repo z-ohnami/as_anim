@@ -5,14 +5,13 @@ package game
 	
 	import starling.display.Image;
 	import starling.display.Quad;
-	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.text.BitmapFont;
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.utils.Color;
 	
-	public class SkillAnimation extends Sprite
+	public class SkillAnimation extends Animation
 	{
 
 		private const PLAYER_DECK_INITIAL_POS_X:int = 20;
@@ -91,20 +90,16 @@ package game
 			//set skillEffect
 			addChild(_skillEffect);
 
+			_title = 'スキル ('+_skillEffect.skillEffectName+')';
+			_rootTween = Tween24.serial(
+					beginTween(),
+					animateSkill(),
+					whiteOut(),
+					showDamage()
+				);
+			
 		}
 		
-		public function start():void
-		{
-			// main
-			Tween24.serial(
-				beginTween(),
-				animateSkill(),
-				whiteOut(),
-				showDamage()
-			).play();
-
-		}
-
 		private function beginTween():Tween24
 		{
 			return Tween24.serial(
