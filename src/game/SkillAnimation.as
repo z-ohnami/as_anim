@@ -1,8 +1,10 @@
 package game
 {
+	
 	import a24.tween.Ease24;
 	import a24.tween.Tween24;
 	
+	import starling.display.Sprite;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.events.Event;
@@ -135,20 +137,27 @@ package game
 		
 		private function showTitle():Tween24
 		{
-			var text:TextField = new TextField(100,80,_skillEffect.skillEffectName);
+			var skillPanel:Sprite = new Sprite();
+			skillPanel.alpha = 0;
+			var skillPanelBg:Quad = new Quad(200,30,0x4169e1);
+			skillPanelBg.alpha = 0.8;
+			
+			skillPanel.addChild(skillPanelBg);
+			
+			var text:TextField = new TextField(200,30,_skillEffect.skillEffectName,'Verdana',16);
 			text.color = 0xFFFFFF;
-			text.x = (stage.stageWidth - text.width) >> 1;
-			text.y = (stage.stageHeight - text.height) >> 1;
-			text.vAlign = 'top';
-			text.hAlign = 'left';
-			text.scaleX = 1.5;
-			text.scaleY = 1.5;
-			addChild(text);
+			text.hAlign = 'center';
+
+			skillPanel.x = (stage.stageWidth - skillPanel.width) >> 1;
+			skillPanel.y = (stage.stageHeight - skillPanel.height) >> 1;
+			skillPanel.addChild(text);
+
+			addChild(skillPanel);
 			
 			return Tween24.serial(
-				Tween24.prop(text).alpha(0),
-				Tween24.tween(text,0.5).alpha(1),
-				Tween24.tween(text,0.5).alpha(0)
+				Tween24.prop(skillPanel).alpha(0),
+				Tween24.tween(skillPanel,0.5).alpha(1),
+				Tween24.tween(skillPanel,0.5).alpha(0)
 			);
 			
 		}

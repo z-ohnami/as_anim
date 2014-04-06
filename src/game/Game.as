@@ -31,8 +31,8 @@ package game
 //			var animation:EvoAnimation = new EvoAnimation();
 //			var animation:RaidStartAnimation = new RaidStartAnimation();
 //			var animation:LoginBonusAnimation = new LoginBonusAnimation();
-			var animation:LevelUpAnimation = new LevelUpAnimation();
-//			var animation:SkillAnimation1 = new SkillAnimation1();
+//			var animation:LevelUpAnimation = new LevelUpAnimation();
+			var animation:SkillAnimation1 = new SkillAnimation1();
 
 			addChild(animation);
 			animation.start(
