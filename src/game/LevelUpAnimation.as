@@ -61,7 +61,7 @@ package game
 			_logo.pivotX = _logo.width >> 1;
 			_logo.pivotY = _logo.height >> 1;
 			_logo.x = stage.stageWidth >> 1;
-			_logo.y = _logo.height;
+			_logo.y = _logo.height + 30;
 			addChild(_logo);
 			
 			_card = new Image(Texture.fromBitmap(new CardImage()));
@@ -70,6 +70,19 @@ package game
 			_card.x = stage.stageWidth >> 1;
 			_card.y = stage.stageHeight >> 1;
 			addChild(_card);
+
+			_messagePanel = new Sprite();
+			var panelBg:Quad = new Quad(280,120,0x87ceeb);
+			panelBg.alpha = 0.8;
+			_messageText = new TextField(280,120,'おや、様子がおかしい！！');
+
+			_messagePanel.alpha = 0;
+			_messagePanel.addChild(panelBg);
+			_messagePanel.addChild(_messageText);
+
+			_messagePanel.x = 20;
+			_messagePanel.y = stage.stageHeight - _messagePanel.height - 20;
+			addChild(_messagePanel);
 			
 			_white = new Quad(stage.stageWidth,stage.stageHeight,0xFFFFFF);
 			_white.alpha = 0;
@@ -78,10 +91,18 @@ package game
 			//create root tween
 			_title = 'レベルアップ';
 			_rootTween = Tween24.serial(
+				showPanelTween(),
 				cardTween(),
+				hidePanelTween(),
 				lineAddTween(),
 				Tween24.parallel(
 					logoTween(),
+					Tween24.serial(
+						Tween24.func(function():void {
+								_messageText.text = 'レベルアップです。\nよかったね。';
+							}),
+						showPanelTween()
+					),
 					Tween24.func(rotateLine)
 				),
 				endTween()
@@ -89,6 +110,16 @@ package game
 			
 		}
 
+		private function showPanelTween():Tween24
+		{
+			return Tween24.tween(_messagePanel,0.2).alpha(1);
+		}
+
+		private function hidePanelTween():Tween24
+		{
+			return Tween24.tween(_messagePanel,0.2).alpha(0);
+		}
+		
 		private function createBackLine():void
 		{
 			_backLineFrames = new Vector.<Quad>();
@@ -150,7 +181,7 @@ package game
 			for(var i:int = 0;i < l;i++) {
 				var line:Quad = _backLineFrames[i];
 				tweenArray.push(
-					Tween24.tween(line,0.5,Ease24._7_CircOut).y(0).delay(delayTime * i)
+					Tween24.tween(line,0.5,Ease24._2_QuadInOut).y(0).delay(delayTime * i)
 				);
 			}
 			
@@ -176,7 +207,7 @@ package game
 		private function endTween():Tween24
 		{
 			return Tween24.serial(
-				Tween24.tween(_white,0.5).alpha(1)
+				Tween24.tween(_white,1).alpha(1)
 			);
 		}
 		

@@ -27,11 +27,11 @@ package game
 			stage.color = 0x000000;
 
 			//single play entry
-			var animation:GouseiAnimation = new GouseiAnimation();
+//			var animation:GouseiAnimation = new GouseiAnimation();
 //			var animation:EvoAnimation = new EvoAnimation();
 //			var animation:RaidStartAnimation = new RaidStartAnimation();
 //			var animation:LoginBonusAnimation = new LoginBonusAnimation();
-//			var animation:LevelUpAnimation = new LevelUpAnimation();
+			var animation:LevelUpAnimation = new LevelUpAnimation();
 //			var animation:SkillAnimation1 = new SkillAnimation1();
 
 			addChild(animation);
